@@ -1,74 +1,60 @@
-testbench code :
+testbench code:
 
-`timescale 1ns / 1ps
 
+// Testbench for ALU_4bit
 module ALU_4bit_tb;
 
-  // Testbench Signals
-  reg [3:0] A, B;       // 4-bit inputs
-  reg [3:0] ALU_Sel;    // 3-bit ALU select input
-  wire [3:0] ALU_Out;   // 4-bit ALU output
-  wire CarryOut;        // Carry output
+    reg [3:0] A, B;
+    reg [3:0] ALU_Sel;
+    wire [3:0] ALU_Out;
+    wire CarryOut;
 
-  // Instantiate the ALU
-  ALU_4bit uut (
-    .A(A),
-    .B(B),
-    .ALU_Sel(ALU_Sel),
-    .ALU_Out(ALU_Out),
-    .CarryOut(CarryOut)
-  );
+    ALU_4bit uut (
+        .A(A),
+        .B(B),
+        .ALU_Sel(ALU_Sel),
+        .ALU_Out(ALU_Out),
+        .CarryOut(CarryOut)
+    );
 
-  // Test cases
-  initial begin
-    // Monitor the signals
-    $monitor("Time = %0t | A = %b | B = %b | ALU_Sel = %b | ALU_Out = %b | CarryOut = %b",
-              $time, A, B, ALU_Sel, ALU_Out, CarryOut);
+    initial begin
+        $dumpfile("dump.vcd");
+        $dumpvars(0, ALU_4bit_tb);
 
-    // Test Addition: 3 + 2
-    A = 4'b0011; B = 4'b0010; ALU_Sel = 4'b0000;
-    #10;
+        $monitor("Time = %0t | A = %b | B = %b | ALU_Sel = %b | ALU_Out = %b | CarryOut = %b",
+                 $time, A, B, ALU_Sel, ALU_Out, CarryOut);
 
-    // Test Subtraction: 5 - 2
-    A = 4'b0101; B = 4'b0010; ALU_Sel = 4'b0001;
-    #10;
+        // Test Addition: 3 + 2
+        A = 4'b0011; B = 4'b0010; ALU_Sel = 4'b0000;
+        #10;
+        // Test Subtraction: 5 - 2
+        A = 4'b0101; B = 4'b0010; ALU_Sel = 4'b0001;
+        #10;
+        // Test AND
+        A = 4'b1100; B = 4'b1010; ALU_Sel = 4'b0010;
+        #10;
+        // Test OR
+        A = 4'b1100; B = 4'b1010; ALU_Sel = 4'b0011;
+        #10;
+        // Test XOR
+        A = 4'b1100; B = 4'b1010; ALU_Sel = 4'b0100;
+        #10;
+        // Test NAND
+        A = 4'b1100; B = 4'b1010; ALU_Sel = 4'b0101;
+        #10;
+        // Test NOR
+        A = 4'b1100; B = 4'b1010; ALU_Sel = 4'b0110;
+        #10;
+        // Test Less Than (A < B)
+        A = 4'b0100; B = 4'b1010; ALU_Sel = 4'b0111;
+        #10;
+        // Test Multiplication (3 * 2)
+        A = 4'b0011; B = 4'b0010; ALU_Sel = 4'b1000;
+        #10;
+        // Test Division (6 / 2)
+        A = 4'b0110; B = 4'b0010; ALU_Sel = 4'b1001;
+        #10;
 
-    // Multiplication (3 * 2)
-    A = 4'b0011; B = 4'b0010; ALU_Sel = 4'b1000;
-    #10;
-
-    // Division (6 / 2)
-    A = 4'b0110; B = 4'b0010; ALU_Sel = 4'b1001;
-    #10;
-
-    // Test AND
-    A = 4'b1100; B = 4'b1010; ALU_Sel = 4'b0010;
-    #10;
-
-    // Test OR
-    A = 4'b1100; B = 4'b1010; ALU_Sel = 4'b0011;
-    #10;
-
-    // Test XOR
-    A = 4'b1100; B = 4'b1010; ALU_Sel = 4'b0100;
-    #10;
-
-    // Test NAND
-    A = 4'b1100; B = 4'b1010; ALU_Sel = 4'b0101;
-    #10;
-
-    // Test NOR
-    A = 4'b1100; B = 4'b1010; ALU_Sel = 4'b0110;
-    #10;
-
-    // Test Less Than (A < B)
-    A = 4'b0100; B = 4'b1010; ALU_Sel = 4'b0111;
-    #10;
-
-    // End simulation
-    $stop;
-  end
-
+        $stop;
+    end
 endmodule
-
-                                                                                                                                                                                     71,0-1        Bot
