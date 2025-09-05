@@ -1,0 +1,55 @@
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : ALU_4bit
+Version: V-2023.12-SP4
+Date   : Fri Sep  5 21:25:57 2025
+****************************************
+
+Operating Conditions: tt0p78vn40c   Library: saed32rvt_tt0p78vn40c
+Wire Load Model Mode: enclosed
+
+  Startpoint: B[1] (input port)
+  Endpoint: ALU_Out[0] (output port)
+  Path Group: default
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  ALU_4bit           8000                  saed32rvt_tt0p78vn40c
+
+  Point                                    Incr       Path
+  -----------------------------------------------------------
+  input external delay                     0.00       0.00 f
+  B[1] (in)                                0.00       0.00 f
+  U149/Y (INVX0_RVT)                       0.10       0.10 r
+  U157/Y (OA22X1_RVT)                      0.13       0.23 r
+  U158/Y (NAND3X0_RVT)                     0.09       0.32 f
+  U159/Y (OA21X1_RVT)                      0.15       0.48 f
+  U160/Y (OAI222X1_RVT)                    0.19       0.67 r
+  U164/Y (AO221X1_RVT)                     0.13       0.79 r
+  U236/Y (INVX0_RVT)                       0.05       0.84 f
+  U237/Y (NAND2X0_RVT)                     0.07       0.92 r
+  U238/SO (HADDX1_RVT)                     0.17       1.08 f
+  U239/Y (AO222X1_RVT)                     0.15       1.24 f
+  U244/Y (AO222X1_RVT)                     0.18       1.41 f
+  U247/Y (AO222X1_RVT)                     0.17       1.58 f
+  U254/Y (OA22X1_RVT)                      0.14       1.72 f
+  U256/Y (NAND3X0_RVT)                     0.07       1.79 r
+  ALU_Out[0] (out)                         0.01       1.80 r
+  data arrival time                                   1.80
+
+  max_delay                               10.00      10.00
+  output external delay                    0.00      10.00
+  data required time                                 10.00
+  -----------------------------------------------------------
+  data required time                                 10.00
+  data arrival time                                  -1.80
+  -----------------------------------------------------------
+  slack (MET)                                         8.20
+
+
+1
