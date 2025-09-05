@@ -1,29 +1,37 @@
-tcl script for synthesis :
+TCL Synthesis Script for Design Compiler Tool :
 
-      # to source library file and verilog file and synthesising 
-      source -echo -verbose ./rm_setup/dc_setup.tcl
-      set rtl_source_file ./../rtl/4_bit_alu.v
-      define_design_lib work -path ./work
-      analyze -format verilog ${rtl_source_file}
-      elaborate ${DESIGN_NAME}
-      start_gui
+# Source library and setup environment
+source -echo -verbose ./rm_setup/dc_setup.tcl
 
-      #to make a fake clock
-      create_clock -name fake_clk -period 1.0
-      set_input_delay 0.1 -clock fake_clk [get_ports B*]
-      set_output_delay 0.1 -clock fake_clk [get_ports ALU_Out*]
-      compile_ultra
+# Set RTL source file path
+set rtl_source_file ./../rtl/4_bit_alu.v
 
-      #for reports generation and saving in file
-      report_qor > ./alu_reports/alu_report_qor.rpt
-      report_timing > ./alu_reports/alu_report_timing.rpt
-      report_area > ./alu_reports/alu_report_area.rpt
-      report_power > ./alu_reports/alu_report_power.rpt
+# Define design library
+define_design_lib work -path ./work
 
-      #for output files generations 
-      write -format verilog -hierarchy -output ${RESULTS_DIR}/${DCRM_FINAL_VERILOG_OUTPUT_FILE}
-      write -format ddc -hierarchy -output ${RESULTS_DIR}/${DCRM_FINAL_DDC_OUTPUT_FILE}
-      write -format sdc -hierarchy -output ${RESULTS_DIR}/${DCRM_FINAL_SDC_OUTPUT_FILE}
-      write_sdc ${RESULTS_DIR}/${DCRM_FINAL_SDC_OUTPUT_FILE}
+# Analyze and elaborate design
+analyze -format verilog ${rtl_source_file}
+elaborate ${DESIGN_NAME}
 
-      
+# Optional GUI start for interactive synthesis
+start_gui
+
+# Compile design with basic and ultra optimizations
+compile
+compile_ultra
+
+# Generate synthesis reports and save in alu_reports folder
+report_qor > alu_reports/alu_report_qor.rpt
+report_timing > alu_reports/alu_report_timing.rpt
+report_area > alu_reports/alu_report_area.rpt
+report_power > alu_reports/alu_report_power.rpt
+
+# Write synthesized outputs to results directory
+write -format verilog -hierarchy -output ${RESULTS_DIR}/${DCRM_FINAL_VERILOG_OUTPUT_FILE}
+write -format ddc -hierarchy -output ${RESULTS_DIR}/${DCRM_FINAL_DDC_OUTPUT_FILE}
+write_sdc ${RESULTS_DIR}/${DCRM_FINAL_SDC_OUTPUT_FILE}
+
+# Notes:
+# - ${DCRM_FINAL_VERILOG_OUTPUT_FILE} and other variables should be set in dc_setup.tcl
+# - Ensure alu_reports and ${RESULTS_DIR} directories exist to avoid errors
+# - mkdir alu_reports and mkdir results should be run in your shell 
